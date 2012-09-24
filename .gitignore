@@ -1,7 +1,7 @@
 *.class
 *.pyc
 *.pyo
-.settings
-.project
+.sublime-project
+.sublime-workspace
 .DS_Store
 dev.html

@@ -5,6 +5,9 @@ documentation, visit http://daveyyzermans.nl/jquery/popover/demo.html
 
 ## Changelog
 
+### v1.1.1
+- Fixed hideAll method
+
 ### v1.1.0
 - Fixed hideOnHTMLClick on iDevices
 

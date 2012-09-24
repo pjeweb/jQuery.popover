@@ -1,5 +1,5 @@
 /**
- * jQuery.popover plugin v1.1.0
+ * jQuery.popover plugin v1.1.1
  * By Davey IJzermans
  * See http://wp.me/p12l3P-gT for details
  * http://daveyyzermans.nl/
@@ -333,6 +333,7 @@
 		 */
 		hideAll: function() {
 			return $.each(popovers, function(i, pop) {
+				var $this = $(this);
 				var data = $this.popover('getData');
 				
 				if(data) {
