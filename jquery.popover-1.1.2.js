@@ -1,5 +1,5 @@
 /**
- * jQuery.popover plugin v1.1.1
+ * jQuery.popover plugin v1.1.2
  * By Davey IJzermans
  * See http://wp.me/p12l3P-gT for details
  * http://daveyyzermans.nl/
@@ -37,13 +37,13 @@
 			var coordinates = $anchor.offset();
 			var y1, x1;
 			
-			if(position == 'top') {
+			if (position == 'top') {
 				y1 = coordinates.top - el.outerHeight();
 				x1 = coordinates.left - el.outerWidth() / 2 + $anchor.outerWidth() / 2;
-			} else if(position == 'right') {
+			} else if (position == 'right') {
 				y1 = coordinates.top + $anchor.outerHeight() / 2 - el.outerHeight() / 2;
 				x1 = coordinates.left	+ $anchor.outerWidth();
-			} else if(position == 'left') {
+			} else if (position == 'left') {
 				y1 = coordinates.top + $anchor.outerHeight() / 2 - el.outerHeight() / 2;
 				x1 = coordinates.left	- el.outerWidth();
 			} else {
@@ -68,15 +68,15 @@
 			var arrow = "top-arrow"
 			var arrow_remove = "right-arrow bottom-arrow left-arrow";
 			
-			if(position == 'top') {
+			if (position == 'top') {
 				remove = "popover-right popover-bottom popover-left";
 				arrow = 'bottom-arrow';
 				arrow_remove = "top-arrow right-arrow left-arrow";
-			} else if(position == 'right') {
+			} else if (position == 'right') {
 				remove = "popover-yop popover-bottom popover-left";
 				arrow = 'left-arrow';
 				arrow_remove = "top-arrow right-arrow bottom-arrow";
-			} else if(position == 'left') {
+			} else if (position == 'left') {
 				remove = "popover-top popover-right popover-bottom";
 				arrow = 'right-arrow';
 				arrow_remove = "top-arrow bottom-arrow left-arrow";
@@ -105,7 +105,7 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(!data) {
+				if ( ! data) {
 					var popover = $('<div class="popover" />')
 						.addClass(options.classes)
 						.append('<div class="arrow" />')
@@ -113,20 +113,17 @@
 						.appendTo('body')
 						.hide();
 					
-					if(options.stopChildrenPropagation)
+					if (options.stopChildrenPropagation) {
 						popover.children().bind('click.popover', function(event) {
 							event.stopPropagation();
 						});
+					}
 					
-					$this.bind('click.popover', function(event) {
-						if(options.preventDefault)
-							event.preventDefault();
-						event.stopPropagation();
-					});
-					
-					if(options.anchor)
-						if(!options.anchor instanceof jQuery)
-							options.anchor = $(options.anchor)
+					if (options.anchor) {
+						if ( ! options.anchor instanceof jQuery) {
+							options.anchor = $(options.anchor);
+						}
+					}
 					
 					var data = {
 						target: $this,
@@ -134,25 +131,28 @@
 						options: options
 					};
 					
-					if(options.title)
+					if (options.title) {
 						$('<div class="title" />')
 							.html(options.title instanceof jQuery ? options.title.html() : options.title)
 							.appendTo(popover.find('.wrap'));
-					if(options.content)
+					}
+					if (options.content) {
 						$('<div class="content" />')
 							.html(options.content instanceof jQuery ? options.content.html() : options.content)
 							.appendTo(popover.find('.wrap'));
-					
+					}
+
 					$this.data('popover', data);
 					popovers.push($this);
 					
-					if(options.url)
+					if (options.url) {
 						$this.popover('ajax', options.url);
+					}
 					
 					$this.popover('reposition');
 					$this.popover('setTrigger', options.trigger);
 					
-					if(options.hideOnHTMLClick) {
+					if (options.hideOnHTMLClick) {
 						var hideEvent = "click.popover";
 						if ("ontouchstart" in document.documentElement)
 							hideEvent = 'touchstart.popover';
@@ -161,7 +161,7 @@
 						});
 					}
 					
-					if(options.autoReposition) {
+					if (options.autoReposition) {
 						var repos_function = function(event) {
 							$this.popover('reposition');
 						};
@@ -182,25 +182,26 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					var options = data.options;
 					var $anchor = options.anchor ? $(options.anchor) : $this;
 					var coordinates = $anchor.offset();
 					
 					var position = options.position;
-					if(!(position == 'top' || position == 'right' || position == 'left' || position == 'auto'))
+					if ( ! (position == 'top' || position == 'right' || position == 'left' || position == 'auto')) {
 						position = 'bottom';
+					}
 					var calc;
 					
-					if(position == 'auto') {
+					if (position == 'auto') {
 						var positions = ["bottom", "left", "top", "right"];
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
 						var windowHeight = $(window).outerHeight();
 						var windowWidth = $(window).outerWidth();
 						
-						$.each(positions, function(i, pos) {
+						$.each (positions, function(i, pos) {
 							calc = _.calc_position($this, pos);
 							
 							var x1 = calc.x1 - scrollLeft;
@@ -208,15 +209,15 @@
 							var y1 = calc.y1 - scrollTop;
 							var y2 = calc.y2 - scrollTop + options.verticalOffset;
 							
-							if(x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0)
+							if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0)
 								//popover is left off of the screen or above it
 								return true; //continue
 							
-							if(y2 > windowHeight)
+							if (y2 > windowHeight)
 								//popover is under the window viewport
 								return true; //continue
 							
-							if(x2 > windowWidth)
+							if (x2 > windowWidth)
 								//popover is right off of the screen
 								return true; //continue
 							
@@ -224,9 +225,10 @@
 							return false;
 						});
 						
-						if(position == 'auto')
+						if (position == 'auto') {
 							//position is still auto
 							return;
+						}
 					}
 					
 					calc = _.calc_position($this, position);
@@ -236,14 +238,18 @@
 					
 					var marginTop = 0;
 					var marginLeft = 0;
-					if(position == 'bottom')
+					if (position == 'bottom') {
 						marginTop = options.verticalOffset;
-					if(position == 'top')
+					}
+					if (position == 'top') {
 						marginTop = -options.verticalOffset;
-					if(position == 'right')
+					}
+					if (position == 'right') {
 						marginLeft = options.horizontalOffset;
-					if(position == 'left')
+					}
+					if (position == 'left') {
 						marginLeft = -options.horizontalOffset;
+					}
 					
 					var css = {
 						left: calc.x1,
@@ -252,9 +258,9 @@
 						marginLeft: marginLeft
 					};
 					
-					if(data.initd && options.animateChange)
-						popover.css(css); //TODO animate?
-					else {
+					if (data.initd && options.animateChange) {
+						popover.css(css);
+					} else {
 						data.initd = true;
 						popover.css(css);
 					}
@@ -288,7 +294,7 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					$this.popover('reposition');
 					popover.clearQueue().css({ zIndex: 950 }).show();
@@ -305,8 +311,9 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data)
+				if (data) {
 					data.popover.hide().css({ zIndex: 949 });
+				}
 			});
 		},
 		/**
@@ -319,7 +326,7 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					var options = data.options;
 					popover.delay(100).css({ zIndex: 949 }).fadeOut(ms ? ms : options.fadeSpeed);
@@ -332,11 +339,11 @@
 		 * @return jQuery
 		 */
 		hideAll: function() {
-			return $.each(popovers, function(i, pop) {
+			return $.each (popovers, function(i, pop) {
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					popover.hide();
 				}
@@ -349,11 +356,11 @@
 		 * @return jQuery
 		 */
 		fadeOutAll: function(ms) {
-			return $.each(popovers, function(i, pop) {
+			return $.each (popovers, function(i, pop) {
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					var options = data.options;
 					popover.css({ zIndex: 949 }).fadeOut(ms ? ms : options.fadeSpeed);
@@ -371,14 +378,16 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var popover = data.popover;
 					var options = data.options;
 					var $anchor = options.anchor ? $(options.anchor) : $this;
 					
-					if(trigger === 'click') {
+					if (trigger === 'click') {
 						$anchor.unbind('click').bind('click', function(event) {
-							event.preventDefault();
+							if (options.preventDefault) {
+								event.preventDefault();
+							}
 							event.stopPropagation();
 							$this.popover('show');
 						});
@@ -386,11 +395,11 @@
 							event.stopPropagation();
 						});
 					} else {
-						$anchor.unbind('click');
+						$anchor.unbind('click.popover');
 						popover.unbind('click.popover')
 					}
 					
-					if(trigger === 'hover') {
+					if (trigger === 'hover') {
 						$anchor.add(popover).bind('mousemove.popover', function(event) {
 							$this.popover('show');
 						});
@@ -401,7 +410,7 @@
 						$anchor.add(popover).unbind('mousemove.popover').unbind('mouseleave.popover');
 					}
 					
-					if(trigger === 'focus') {
+					if (trigger === 'focus') {
 						$anchor.add(popover).bind('focus.popover', function(event) {
 							$this.popover('show');
 						});
@@ -410,7 +419,7 @@
 						});
 						$anchor.bind('click.popover', function(event) {
 							event.stopPropagation();
-						})
+						});
 					} else {
 						$anchor.add(popover).unbind('focus.popover').unbind('blur.popover').unbind('click.popover');
 					}
@@ -428,11 +437,12 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var title = data.popover.find('.title');
 					var wrap = data.popover.find('.wrap');
-					if(title.length === 0)
+					if (title.length === 0) {
 						title = $('<div class="title" />').appendTo(wrap);
+					}
 					title.html(text);
 				}
 			});
@@ -448,11 +458,12 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var content = data.popover.find('.content');
 					var wrap = data.popover.find('.wrap');
-					if(content.length === 0)
+					if (content.length === 0) {
 						content = $('<div class="content" />').appendTo(wrap);
+					}
 					content.html(html);
 				}
 			});
@@ -469,14 +480,15 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					var ajax_defaults = {
 						url: url,
 						success: function(ajax_data) {
 							var content = data.popover.find('.content');
 							var wrap = data.popover.find('.wrap');
-							if(content.length === 0)
+							if (content.length === 0) {
 								content = $('<div class="content" />').appendTo(wrap);
+							}
 							content.html(ajax_data);
 						}
 					}
@@ -490,7 +502,7 @@
 				var $this = $(this);
 				var data = $this.popover('getData');
 				
-				if(data) {
+				if (data) {
 					data.options[option] = value;
 					$this.data('popover', data);
 				}
@@ -502,23 +514,26 @@
 				var $this = $(this);
 				var data = $this.data('popover');
 				
-				if(data) ret.push(data);
+				if (data) ret.push(data);
 			});
 			
-			if(ret.length == 0)
+			if (ret.length == 0) {
 				return;
-			if(ret.length == 1)
+			}
+			if (ret.length == 1) {
 				ret = ret[0];
+			}
 			return ret;
 		}
 	};
 
 	$.fn.popover = function(method) {
-		if(methods[method])
+		if (methods[method]) {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		else if( typeof method === 'object' || !method)
+		} else if ( typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
-		else
+		} else {
 			$.error('Method ' + method + ' does not exist on jQuery.popover');
+		}
 	}
 })(jQuery);

@@ -5,6 +5,11 @@ documentation, visit http://daveyijzermans.nl/jquery/popover/demo.html
 
 ## Changelog
 
+### v1.1.2
+- Some code style tweaks
+- Box shadow in stylesheet
+- Moved preventDefault to setTrigger method
+
 ### v1.1.1
 - Fixed hideAll method
 
