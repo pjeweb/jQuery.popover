@@ -384,7 +384,7 @@
 					var $anchor = options.anchor ? $(options.anchor) : $this;
 					
 					if (trigger === 'click') {
-						$anchor.unbind('click').bind('click', function(event) {
+						$anchor.unbind('click.popover').bind('click.popover', function(event) {
 							if (options.preventDefault) {
 								event.preventDefault();
 							}
