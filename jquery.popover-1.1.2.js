@@ -29,7 +29,7 @@
 	var popovers = [];
 	var _ = {
 		calc_position: function(popover, position) {
-			var data = popover.popover("getData");
+			var data = popover.popover('getData');
 			var options = data.options;
 			var $anchor = options.anchor ? $(options.anchor) : popover;
 			var el = data.popover;
@@ -63,22 +63,22 @@
             };
 		},
 		pop_position_class: function(popover, position) {
-			var remove = "popover-top popover-right popover-left";
-			var arrow = "top-arrow";
-			var arrow_remove = "right-arrow bottom-arrow left-arrow";
+			var remove = 'popover-top popover-right popover-left';
+			var arrow = 'top-arrow';
+			var arrow_remove = 'right-arrow bottom-arrow left-arrow';
 			
 			if (position == 'top') {
-				remove = "popover-right popover-bottom popover-left";
+				remove = 'popover-right popover-bottom popover-left';
 				arrow = 'bottom-arrow';
-				arrow_remove = "top-arrow right-arrow left-arrow";
+				arrow_remove = 'top-arrow right-arrow left-arrow';
 			} else if (position == 'right') {
-				remove = "popover-yop popover-bottom popover-left";
+				remove = 'popover-yop popover-bottom popover-left';
 				arrow = 'left-arrow';
-				arrow_remove = "top-arrow right-arrow bottom-arrow";
+				arrow_remove = 'top-arrow right-arrow bottom-arrow';
 			} else if (position == 'left') {
-				remove = "popover-top popover-right popover-bottom";
+				remove = 'popover-top popover-right popover-bottom';
 				arrow = 'right-arrow';
-				arrow_remove = "top-arrow bottom-arrow left-arrow";
+				arrow_remove = 'top-arrow bottom-arrow left-arrow';
 			}
 			
 			popover
@@ -152,8 +152,8 @@
 					$this.popover('setTrigger', options.trigger);
 					
 					if (options.hideOnHTMLClick) {
-						var hideEvent = "click.popover";
-						if ("ontouchstart" in document.documentElement)
+						var hideEvent = 'click.popover';
+						if ('ontouchstart' in document.documentElement)
                             hideEvent = 'touchstart.popover';
 
 						$('html').unbind(hideEvent).bind(hideEvent, function(event) {
@@ -195,7 +195,7 @@
 					var calc;
 					
 					if (position == 'auto') {
-						var positions = ["bottom", "left", "top", "right"];
+						var positions = ['bottom', 'left', 'top', 'right'];
 						var scrollTop = $(window).scrollTop();
 						var scrollLeft = $(window).scrollLeft();
 						var windowHeight = $(window).outerHeight();
