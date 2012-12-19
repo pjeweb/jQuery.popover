@@ -7,7 +7,7 @@
  * Released under MIT License.
  */
 
-;(function($) {
+(function($) {
 	//define some default plugin options
 	var defaults = {
 		verticalOffset: 10, //offset the popover by y px vertically (movement depends on position of popover. If position == 'bottom', positive numbers are down)
@@ -25,7 +25,7 @@
 		animateChange: true, //animate a popover reposition
 		autoReposition: true, //automatically reposition popover on popover change and window resize
 		anchor: false //anchor the popover to a different element
-	}
+	};
 	var popovers = [];
 	var _ = {
 		calc_position: function(popover, position) {
@@ -35,7 +35,7 @@
 			var el = data.popover;
 			
 			var coordinates = $anchor.offset();
-			var y1, x1;
+			var y1, y2, x1, x2;
 			
 			if (position == 'top') {
 				y1 = coordinates.top - el.outerHeight();
@@ -54,18 +54,17 @@
 			
 			x2 = x1 + el.outerWidth();
 			y2 = y1 + el.outerHeight();
-			ret = {
-				x1: x1,
-				x2: x2,
-				y1: y1,
-				y2: y2
-			};
 			
-			return ret;
+			return {
+                x1: x1,
+                x2: x2,
+                y1: y1,
+                y2: y2
+            };
 		},
 		pop_position_class: function(popover, position) {
 			var remove = "popover-top popover-right popover-left";
-			var arrow = "top-arrow"
+			var arrow = "top-arrow";
 			var arrow_remove = "right-arrow bottom-arrow left-arrow";
 			
 			if (position == 'top') {
@@ -125,7 +124,7 @@
 						}
 					}
 					
-					var data = {
+					data = {
 						target: $this,
 						popover: popover,
 						options: options
@@ -155,7 +154,8 @@
 					if (options.hideOnHTMLClick) {
 						var hideEvent = "click.popover";
 						if ("ontouchstart" in document.documentElement)
-							hideEvent = 'touchstart.popover';
+                            hideEvent = 'touchstart.popover';
+
 						$('html').unbind(hideEvent).bind(hideEvent, function(event) {
 							$('html').popover('fadeOutAll');
 						});
@@ -329,7 +329,7 @@
 				if (data) {
 					var popover = data.popover;
 					var options = data.options;
-					popover.delay(100).css({ zIndex: 949 }).fadeOut(ms ? ms : options.fadeSpeed);
+					popover.delay(100).css({ zIndex: 949 }).fadeOut(ms || options.fadeSpeed);
 				}
 			});
 		},
@@ -363,7 +363,7 @@
 				if (data) {
 					var popover = data.popover;
 					var options = data.options;
-					popover.css({ zIndex: 949 }).fadeOut(ms ? ms : options.fadeSpeed);
+					popover.css({ zIndex: 949 }).fadeOut(ms || options.fadeSpeed);
 				}
 			});
 		},
@@ -396,7 +396,7 @@
 						});
 					} else {
 						$anchor.unbind('click.popover');
-						popover.unbind('click.popover')
+						popover.unbind('click.popover');
 					}
 					
 					if (trigger === 'hover') {
@@ -491,7 +491,7 @@
 							}
 							content.html(ajax_data);
 						}
-					}
+					};
 					var ajax_options = $.extend({}, ajax_defaults, ajax_params);
 					$.ajax(ajax_options);
 				}
@@ -532,8 +532,8 @@
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if ( typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
-		} else {
-			$.error('Method ' + method + ' does not exist on jQuery.popover');
 		}
+
+        $.error('Method ' + method + ' does not exist on jQuery.popover');
 	}
 })(jQuery);
