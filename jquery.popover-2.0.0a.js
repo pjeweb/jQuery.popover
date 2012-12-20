@@ -442,8 +442,8 @@
 
 					if (typeof response == "object") {
 						// Most likely JSON, set title and content accordingly
-						
-						if (reponse[options.titleFillMethod]) {
+
+						if (response[options.titleFillMethod]) {
 							newData.options.title = response[options.titleFillMethod];
 							newData.updateNeeded = true; // demand a view update
 						}
