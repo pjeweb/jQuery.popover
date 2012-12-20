@@ -2,18 +2,18 @@
  * jQuery.popover plugin v2.0.0b
  * By Davey IJzermans
  * http://daveyijzermans.nl/
- * 
+ *
  * Released under MIT License.
  */
 
 (function ($) {
-	"use strict";
+	'use strict';
 
 	var popovers = $();
 
 	/**
 	 * Default plugin options
-	 * 
+	 *
 	 * @type {Object}
 	 */
 	var defaults = {
@@ -42,7 +42,7 @@
 	};
 	/**
 	 * Internal settings
-	 * 
+	 *
 	 * @type {Object}
 	 */
 	var s = {
@@ -52,14 +52,14 @@
 	};
 	/**
 	 * Private methods
-	 * 
+	 *
 	 * @type {Object}
 	 */
 	var priv = {
 		setData: function(data) {
 			return this.each(function() {
 				var $element = $(this);
-				$element.data(s['data_identifier'], data);
+				$element.data(s.data_identifier, data);
 			});
 		}
 	};
@@ -73,7 +73,7 @@
 	 *
 	 * will become a this.each() statement. In this statement, all variables in the closure will already be available
 	 * without the need to define them every single time.
-	 * 
+	 *
 	 * @param  string tpl  Template name to use (stdSingle: a single element, stdSingleData: a single element with data, stdEach: stdSingle wrapped in an each() call, stdEachData: stdSingleData wrapped in an each() call)
 	 * @param  function code Code to executed. Gets called the defined variables.
 	 * @return mixed
@@ -93,13 +93,13 @@
 					var data = $element.popover('getData');
 
 					if ( ! data) {
-						$.error('[' + s['plugin_name'] + '] No popover initialized on this element!');
+						$.error('[' + s.plugin_name + '] No popover initialized on this element!');
 						return false;
 					}
 
 					var options = data.options;
 					var $popover = data.popover;
-					var $anchor = (options.anchor instanceof jQuery ? options.anchor : $element);
+					var $anchor = (options.anchor instanceof $ ? options.anchor : $element);
 					var $document = $(document);
 					var $window = $(window);
 
@@ -121,7 +121,7 @@
 	};
 	/**
 	 * Plugin methods
-	 * 
+	 *
 	 * @type {Object}
 	 */
 	var methods = {
@@ -129,7 +129,7 @@
 		 * Initialization method.
 		 * Constructs elements, constructs data, attaches popover, sets data and options,
 		 * updates the markup and binds events.
-		 * 
+		 *
 		 * @param {Object}
 		 * @return jQuery
 		 */
@@ -139,7 +139,7 @@
 				var data = $element.popover('getData');
 
 				if (data) {
-					$.error('[' + s['plugin_name'] + '] Popover already initialized on this element!');
+					$.error('[' + s.plugin_name + '] Popover already initialized on this element!');
 					return false;
 				}
 
@@ -148,7 +148,7 @@
 
 				// Instantiate markup into a working element and find elements that
 				// contain the title and content.
-				var popoverHTML = $(options['markup']);
+				var popoverHTML = $(options.markup);
 				var titleElement = $('.title', popoverHTML);
 				var contentElement = $('.content', popoverHTML);
 				var arrowElement = $('.arrow', popoverHTML);
@@ -160,7 +160,7 @@
 
 				// Hide the popover
 				popoverHTML.hide();
-				
+
 				// Attach the popover to the body
 				var popoverAttached = popoverHTML.appendTo('body');
 
@@ -181,15 +181,15 @@
 				popovers = popovers.add($element); // add to popovers array for reference
 
 				// Trigger the 'popoverCreated' event for custom callbacks
-				$element.trigger('popoverCreated.' + s['trigger_namespace']);
+				$element.trigger('popoverCreated.' + s.trigger_namespace);
 
-				// Set the actual options and update the 
+				// Set the actual options and update the
 				$element.popover('setOptions', options).popover('update');
 			});
 		},
 		/**
 		 * Updates the popover content
-		 * 
+		 *
 		 * @return jQuery
 		 */
 		updateView: function() {
@@ -212,10 +212,10 @@
 					right: 'auto',
 					bottom: 'auto',
 					left: 'auto'
-				}
+				};
 
 				var absolutePosition = false;
-				if (typeof options.anchorPosition == "object") {
+				if (typeof options.anchorPosition == 'object') {
 					// Absolute position given.
 					$.extend(css, options.anchorPosition);
 					absolutePosition = true;
@@ -307,7 +307,7 @@
 					if (anchor_points[options.anchorPosition]) {
 						$.extend(css, anchor_points[options.anchorPosition]);
 					} else {
-						$.error('[' + s['plugin_name'] + '] Invalid position!');
+						$.error('[' + s.plugin_name + '] Invalid position!');
 						return false;
 					}
 				}
@@ -340,19 +340,19 @@
 							event.preventDefault();
 						}
 					}
-				}
+				};
 
 				// Define methods for different triggers. These methods should bind events
 				// in the .popoverTrigger namespace
 				var triggerMethods = {
 					click: function() {
-						$element.on('click.' + s['trigger_namespace'], activationMethods.show);
+						$element.on('click.' + s.trigger_namespace, activationMethods.show);
 					},
 					touch: function() {
-						$element.on('touchstart.' + s['trigger_namespace'], activationMethods.show);
+						$element.on('touchstart.' + s.trigger_namespace, activationMethods.show);
 					},
 					clicktouch: function() {
-						if (typeof Modernizr == "object") {
+						if (typeof Modernizr == 'object') {
 							if (Modernizr.touch) {
 								this.touch();
 							} else {
@@ -363,8 +363,8 @@
 						}
 					},
 					hover: function() {
-						$element.on('mouseenter.' + s['trigger_namespace'], activationMethods.show);
-						$elementAndPopover.on('mouseleave.' + s['trigger_namespace'], function(event) {
+						$element.on('mouseenter.' + s.trigger_namespace, activationMethods.show);
+						$elementAndPopover.on('mouseleave.' + s.trigger_namespace, function(event) {
 							if (options.preventDefault) {
 								event.preventDefault();
 							}
@@ -372,26 +372,26 @@
 								$(this).popover('hide');
 							});
 						});
-						$popover.on('mousemove.' + s['trigger_namespace'], activationMethods.show);
+						$popover.on('mousemove.' + s.trigger_namespace, activationMethods.show);
 					},
 					manual: function() {}
 				};
 
-				$elementAndPopover.add('body').off('.' + s['trigger_namespace']);
+				$elementAndPopover.add('body').off('.' + s.trigger_namespace);
 
 				if (options.stopChildrenPropagation) {
-					$popover.on('click.' + s['trigger_namespace'], '*', function(event) {
-						event.stopPropagation;
+					$popover.on('click.' + s.trigger_namespace, '*', function(event) {
+						event.stopPropagation();
 					});
 				}
 
 				// Hide the popover when clicked outside of it
 				if (options.hideOnHTMLClick) {
-					//$('body').on('click.' + s['trigger_namespace'], activationMethods.hide);
+					//$('body').on('click.' + s.trigger_namespace, activationMethods.hide);
 				}
 
 				if (options.autoReposition) {
-					$(window).on('scroll.' + s['trigger_namespace'] + ' resize.' + s['trigger_namespace'], function() {
+					$(window).on('scroll.' + s.trigger_namespace + ' resize.' + s.trigger_namespace, function() {
 						$element.popover('updatePosition');
 					});
 				}
@@ -399,7 +399,7 @@
 				if (triggerMethods[options.trigger]) {
 					triggerMethods[options.trigger]();
 				} else {
-					$.error('[' + s['plugin_name'] + '] Invalid trigger!');
+					$.error('[' + s.plugin_name + '] Invalid trigger!');
 					return false;
 				}
 			});
@@ -408,20 +408,20 @@
 		fetchAndUpdate: function() {
 			return factory.call(this, function($element, data, options) {
 				if ( ! data.isAjaxPopover) {
-					$.error('[' + s['plugin_name'] + '] Not an AJAX popover!');
+					$.error('[' + s.plugin_name + '] Not an AJAX popover!');
 					return false;
 				}
 
 				if ( ! options.url) {
-					$.error('[' + s['plugin_name'] + '] No URL set on this popover!');
+					$.error('[' + s.plugin_name + '] No URL set on this popover!');
 					return false;
 				}
 
 				// Construct settings for the AJAX call
 				var ajaxSettings = {
 					url: options.url,
-					type: (options.method === "GET" ? "GET" : "POST"),
-					data: (typeof options.ajaxData == "object" ? options.ajaxData : {}),
+					type: (options.method === 'GET' ? 'GET' : 'POST'),
+					data: (typeof options.ajaxData == 'object' ? options.ajaxData : {}),
 					cache: options.cache !== false
 				};
 				if (options.ajaxAsJSON === true) {
@@ -429,18 +429,18 @@
 				}
 
 				ajaxSettings.error = function(jqXHR, textStatus, errorThrown) {
-					$.error('[' + s['plugin_name'] + '] AJAX call returned an error: "' + errorThrown + '"');
+					$.error('[' + s.plugin_name + '] AJAX call returned an error: "' + errorThrown + '"');
 
 					// Trigger the 'ajaxFetchFailed' event for custom callbacks
-					$element.trigger('ajaxFetchFailed.' + s['trigger_namespace'], jqXHR, textStatus, errorThrown);
+					$element.trigger('ajaxFetchFailed.' + s.trigger_namespace, jqXHR, textStatus, errorThrown);
 
 					return false;
-				}
+				};
 
 				ajaxSettings.success = function(response, textStatus, jqXHR) {
 					var newData = data;
 
-					if (typeof response == "object") {
+					if (typeof response == 'object') {
 						// Most likely JSON, set title and content accordingly
 
 						if (response[options.titleFillMethod]) {
@@ -462,16 +462,16 @@
 					// All done with the AJAX stuff
 					newData.ajaxFetchNeeded = false;
 					newData.ajaxFetchCued = false;
-					
+
 					priv.setData.call($element, newData);
 					$element.popover('update');
 
 					// Trigger the 'ajaxFetchComplete' event for custom callbacks
-					$element.trigger('ajaxFetchComplete.' + s['trigger_namespace'], response, textStatus, jqXHR);
-				}
+					$element.trigger('ajaxFetchComplete.' + s.trigger_namespace, response, textStatus, jqXHR);
+				};
 
 				// Trigger the 'beforeAjaxFetch' event for custom callbacks
-				$element.trigger('beforeAjaxFetch.' + s['trigger_namespace'], ajaxSettings);
+				$element.trigger('beforeAjaxFetch.' + s.trigger_namespace, ajaxSettings);
 
 				$.ajax(ajaxSettings);
 			});
@@ -482,7 +482,7 @@
 				if (data.updateNeeded) {
 					$element.popover('updateView');
 				}
-				
+
 				if (data.ajaxFetchCued) {
 					$element.popover('fetchAndUpdate');
 				}
@@ -490,7 +490,7 @@
 				$element.popover('updatePosition');
 
 				// Trigger the 'updated' event for custom callbacks
-				$element.trigger('updated.' + s['trigger_namespace']);
+				$element.trigger('updated.' + s.trigger_namespace);
 			});
 		},
 
@@ -522,15 +522,15 @@
 				});
 
 				if (options.anchor !== false) {
-					if ( ! options.anchor instanceof jQuery) {
+					if ( ! options.anchor instanceof $) {
 						options.anchor = $(options.anchor);
 						if (options.anchor.length !== 1) {
-							$.error('[' + s['plugin_name'] + '] Not a valid anchor!');
+							$.error('[' + s.plugin_name + '] Not a valid anchor!');
 							return false;
 						}
 					}
 				}
-				
+
 				// Set the new options
 				data.options = options;
 				priv.setData.call($element, data);
@@ -545,13 +545,13 @@
 				if (data.ajaxFetchNeeded) {
 					data.ajaxFetchCued = true;
 					priv.setData.call($element, data);
-					$element.one('ajaxFetchComplete.' + s['trigger_namespace'], function() {
+					$element.one('ajaxFetchComplete.' + s.trigger_namespace, function() {
 						$(this).popover('show');
 					}).popover('fetchAndUpdate');
 				} else {
 					// Fade in the popover with the set speed and trigger the 'show' event
 					// for custom callbacks
-					$popover.fadeIn(options.showSpeed).trigger('show.' + s['trigger_namespace']);
+					$popover.fadeIn(options.showSpeed).trigger('show.' + s.trigger_namespace);
 				}
 			});
 		},
@@ -560,7 +560,7 @@
 			return factory.call(this, function($element, data, options, $popover) {
 				// Fade out the popover with the set speed and trigger the 'hide' event
 				// for custom callbacks
-				$popover.fadeOut(options.hideSpeed).trigger('hide.' + s['trigger_namespace']);
+				$popover.fadeOut(options.hideSpeed).trigger('hide.' + s.trigger_namespace);
 			});
 		},
 
@@ -574,7 +574,7 @@
 
 		getData: function() {
 			return factory.call(this, 'stdSingle', function($element) {
-				return $element.data(s['data_identifier']);
+				return $element.data(s.data_identifier);
 			});
 		},
 
@@ -613,10 +613,11 @@
 	$.fn.popover = function(method) {
 		if (methods[method]) {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else if (typeof method === 'object' || ! method) {
-			return methods.init.apply(this, arguments);
-		} else {
-			$.error('[' + s['plugin_name'] + '] Method ' + method + ' does not exist in ' + s['plugin_name'] + '.');
 		}
+		if (typeof method === 'object' || ! method) {
+			return methods.init.apply(this, arguments);
+		}
+
+		$.error('[' + s.plugin_name + '] Method ' + method + ' does not exist in ' + s.plugin_name + '.');
 	};
-})(jQuery);
+}(jQuery));
