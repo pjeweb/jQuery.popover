@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="popover.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="jquery.popover-1.1.2.js"></script>
+		<script type="text/javascript" src="jquery.popover-2.0.0b.js"></script>
 		<script type="text/javascript">
 		/* <![CDATA[ */
 			jQuery(document).ready(function($) {
@@ -23,7 +23,7 @@
 				$("#ex3a").popover({
 					title: "<_<",
 					content: "Damn.",
-					trigger: 'none'
+					trigger: 'manual'
 				});
 				$("#ex3b").click(function(event) {
 					event.preventDefault();
@@ -38,7 +38,7 @@
 				$("#ex4a").popover({
 					title: "Guess what this is...",
 					content: "Pa's wijze lynx bezag vroom het fikse aquaduct.",
-					trigger: 'none'
+					trigger: 'manual'
 				});
 				$("#ex4b").click(function(event) {
 					event.preventDefault();
@@ -221,7 +221,7 @@
 		<pre><code>$(&quot;#ex3a&quot;).popover({
 	title: &quot;&amp;lt;_&amp;lt;&quot;,
 	content: &quot;Damn.&quot;,
-	trigger: 'none'
+	trigger: 'manual'
 });
 $(&quot;#ex3b&quot;).click(function(event) {
 	event.preventDefault();
@@ -246,7 +246,7 @@ $(&quot;#ex3b&quot;).click(function(event) {
 		<pre><code>$(&quot;#ex4a&quot;).popover({
 	title: &quot;Guess what this is...&quot;,
 	content: &quot;Pa's wijze lynx bezag vroom het fikse aquaduct.&quot;,
-	trigger: 'none'
+	trigger: 'manual'
 });
 $(&quot;#ex4b&quot;).click(function(event) {
 	event.preventDefault();
@@ -479,21 +479,28 @@ $(&quot;#ex7b&quot;).click(function(event) {
 		<p>For convienience, here is this plugin's defaults prototype.</p>
 		
 		<pre><code>var defaults = {
-	verticalOffset: 10,
-	horizontalOffset: 10,
 	title: false,
 	content: false,
 	url: false,
-	classes: '',
-	position: 'auto',
-	fadeSpeed: 160,
-	trigger: 'click',
-	preventDefault: true,
-	stopChildrenPropagation:
-	hideOnHTMLClick: true,
-	animateChange: true,
-	autoReposition: true,
-	anchor: false: false
+	method: 'POST',
+	ajaxData: {},
+	ajaxAsJSON: false,
+	titleFillMethod: 'plain',
+	contentFillMethod: 'plain',
+	loadImmediately: false,
+	cache: true,
+	markup: '&lt;div class="popover"&gt;&lt;div class="arrow"&gt;&lt;/div&gt;&lt;div class="wrap"&gt;&lt;div class="title"&gt;&lt;/div&gt;&lt;div class="content"&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;', // Custom HTML markup
+	classes: false, // Specify CSS classes to add to popover on initialization
+	position: 'bottom', // Position of the popover
+	anchorPosition: 'bottom', // Use this to determine where the anchor point is. You can also set this to an absolute position (i.e. { top: 4, left: 4 }, relative to document body)
+	trigger: 'clicktouch', // Set the popover trigger method: 'clicktouch', 'click', 'touch', 'hover' or 'manual'
+	preventDefault: true, // Call event.preventDefault() when triggering anchor element (element on which the popover is initialized)
+	stopChildrenPropagation: true, // Prevent propagation on popover children
+	hideOnHTMLClick: true, // Hides the popover when clicked outside of it
+	autoReposition: true, // Automatically reposition popover so it fits best on screen
+	anchor: false, // Anchor the popover to a different element, but keep the trigger on the selected element(s)
+	showSpeed: 0,
+	hideSpeed: 160
 }</code></pre>
 		
 		<a name="methods"></a>

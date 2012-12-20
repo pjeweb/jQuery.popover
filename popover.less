@@ -1,0 +1,134 @@
+.gradient (@top, @bottom) {
+	background: @top;
+	background: -webkit-gradient(linear, left top, left bottom, from(@top), to(@bottom));
+	background: -moz-linear-gradient(top, @top, @bottom);
+}
+
+.rounded (@radius: 5px) {
+	border-radius: @radius;
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+}
+
+.popover {
+	@arrow-width: 5px;
+	@border-radius: 4px;
+	@border-color: #121212;
+
+	position: absolute;
+	top: 0; left: 0;
+	max-height: 240px;
+	width: 220px;
+	margin-left: -110px;
+
+	.arrow {
+		position: absolute;
+		width: 0; height: 0;
+		margin-left: -5px;
+
+		border-top: @arrow-width solid transparent;
+		border-left: @arrow-width solid transparent;
+		border-right: @arrow-width solid transparent;
+		border-bottom: @arrow-width solid transparent;
+	}
+
+	.wrap {
+		background: white;
+		border: 3px solid @border-color;
+		margin: @arrow-width;
+		.rounded (@border-radius);
+		
+		.title {
+			.gradient (lighten(@border-color, 25%), @border-color);
+			color: white;
+			font-size: 1.3em;
+			font-family: 'Montserrat', sans-serif;
+			text-align: center;
+			padding: 8px 0;
+			text-shadow: none;
+		}
+		.content {
+			padding: 15px;
+			max-height: 175px;
+			overflow: auto;
+			line-height: 1.3em;
+			font-size: 0.9em;
+		}
+
+		.title, .content {
+			&:empty {
+				display: none;
+			}
+		}
+	}
+
+	&.wider {
+		width: 340px;
+		margin-left: -170px;
+
+		&.popover-left {
+			margin-left: 0;
+		}
+
+		&.popover-right {
+			margin-left: -340px;
+		}
+	}
+
+	&.larger, &.large {
+		width: 260px;
+		margin-left: -130px;
+		max-height: 350px;
+
+		&.popover-left {
+			margin-left: 0;
+		}
+
+		&.popover-right {
+			margin-left: -260px;
+		}
+
+		.content {
+			max-height: 285px;
+		}
+	}
+
+	&.large {
+		width: 470px;
+		margin-left: -235px;
+
+		&.popover-left {
+			margin-left: 0;
+		}
+
+		&.popover-right {
+			margin-left: -470px;
+		}
+	}
+
+	&.small {
+		width: 160px;
+		margin-left: -80px;
+
+		&.popover-left {
+			margin-left: 0;
+		}
+
+		&.popover-right {
+			margin-left: -160px;
+		}
+
+		.title {
+			padding: 4px 0;
+			font-size: 1em;
+		}
+		.content {
+			padding: 5px;
+			font-size: 0.85em;
+		}
+	}
+
+	&.nopad .content {
+		padding: 0;
+	}
+}
